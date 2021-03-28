@@ -4,7 +4,7 @@ let empTable = document.querySelector('#employees');
 
 
 // SET A COUNT VARIABLE TO DISPLAY NEXT TO EMPLOYEES HEADER
-let employeeCounter = 1;
+let employeeCounter = 0;
 
 
 // ADD EMPLOYEE
@@ -24,7 +24,7 @@ form.addEventListener('submit', (e) => {
     let department =            $('department').value;
 
     // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
-    let row = empTable.insertRow(employeeCounter);
+    let row = empTable.insertRow(employeeCounter+1);
 
     // INSERT A CELL FOR EACH ITEM WITHIN THE NEW ROW
     let cell_0 = row.insertCell(0);
@@ -43,7 +43,7 @@ form.addEventListener('submit', (e) => {
     // CREATE THE DELETE BUTTON
     let deleteBtn = document.createElement('button');
     // ADD NECESSARY CLASSES TO BUTTON
-    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+    deleteBtn.className = 'btn btn-danger btn-xs float-right';
     // CREATE TEXT NODE, SET IT TO 'X', AND APPEND TO DELETE BUTTON
     deleteBtn.appendChild(document.createTextNode('X'));
     // APPEND DELETE BUTTON TO THE LI
@@ -59,23 +59,19 @@ form.addEventListener('submit', (e) => {
     // SET FOCUS BACK TO THE ID TEXT BOX
     document.querySelector('#id').focus();
 
+    // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE BY 1
+    employeeCounter++;
+
     // DISPLAY EMPLOYEE COUNT ON THE SCREEN
     document.querySelector('#empCount').value = employeeCounter;
-
-    // INCREMENENT THE NUMBER OF EMPLOYEES IN THE TABLE
-    employeeCounter += 1;
-
 });
 
 // DELETE EMPLOYEE
-row.addEventListener('click', (e) => {
-    // CHECK TO SEE IF THE .delete CLASS EXISTS ON LI
-//     if (e.target.classList.contains('delete')) {
-//         // CONFIRM THE DELETE
-//         if (confirm('Are you sure you want to delete this task?')) {
-//             // SELECT THE PARENT LI ELEMENT AND THEN DELETE IT
-//             //row.removeChild(e.target.parentElement);
-//         }
-//     }
-    table.deleteRow(e.target.path-to-tr-tag.rowIndex);
+empTable.addEventListener('click', (e) => {
+    // DEELETE SELECTED ROWN
+    empTable.deleteRow(e.target.parentNode.rowIndex); 
+    // DECREASE EMPLOYEE COUNT BY 1
+    employeeCounter--;
+    // UPDATE EMPLOYEE COUNT ON PAGE
+    document.querySelector('#empCount').value = employeeCounter;
 });
